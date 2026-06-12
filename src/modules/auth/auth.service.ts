@@ -133,6 +133,10 @@ export class AuthService {
         }
     }
 
+    async logout(refreshToken: string): Promise<void> {
+        await this.prisma.token.deleteMany({ where: {token: refreshToken}});
+    }
+
     async getProfile(userId: string) {
         const user = await this.prisma.user.findUnique({
             where: {id: userId},
@@ -145,3 +149,4 @@ export class AuthService {
     }
 
 }
+
