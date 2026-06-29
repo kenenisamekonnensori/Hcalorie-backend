@@ -3,8 +3,6 @@ import type { FastifyInstance } from "fastify";
 import crypto from "crypto";
 import type { LoginInput, RegisterInput } from "./auth.schema.js";
 import { hashPassword, verifyPassword } from "@/shared/utils/password.js";
-import { emitWarning } from "process";
-import { relative } from "path";
 
 const REFRESH_TOKEN_TTL_DAYS = 30;
 
@@ -149,4 +147,3 @@ export class AuthService {
     }
 
 }
-

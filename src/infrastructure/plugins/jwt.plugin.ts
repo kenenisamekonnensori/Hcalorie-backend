@@ -5,7 +5,9 @@ import { env } from "../config/env.js";
 
 const jwtPlugin: FastifyPluginAsync = fp(async (fastify) => {
   await fastify.register(fastifyJwt, {
-    secret: env.JWT_ACCESS_SECRET,
+    secret:
+      env.BETTER_AUTH_SECRET ??
+      'development-only-change-this-better-auth-secret',
     sign: { expiresIn: "15m" },
   });
 
