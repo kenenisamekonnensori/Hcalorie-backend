@@ -1,10 +1,16 @@
-import { PrismaClient } from "@prisma/client";
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { PrismaClient } from "@/generated/prisma/client.js";
+import type { AuthSession } from "@/shared/lib/auth.js";
+import type { FastifyReply } from "fastify";
 
 declare module "fastify" {
   interface FastifyInstance {
     prisma: PrismaClient;
-    authenticate: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+    requireAuth: (request: import("fastify").FastifyRequest, reply: FastifyReply) => Promise<void>;
+    requirePremium: (request: import("fastify").FastifyRequest, reply: FastifyReply) => Promise<void>;
+  }
+
+  interface FastifyRequest {
+    auth?: AuthSession;
   }
 }
 
