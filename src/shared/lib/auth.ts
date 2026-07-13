@@ -7,6 +7,7 @@ import { env } from '@/infrastructure/config/env.js';
 import { prisma } from '@/infrastructure/database/prisma.js';
 
 const baseURL = env.BETTER_AUTH_URL ?? `http://localhost:${env.PORT}`;
+const isProduction = env.NODE_ENV === 'production';
 
 const plugins: BetterAuthPlugin[] = [];
 
@@ -69,6 +70,16 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 30,
     updateAge: 60 * 60 * 24,
     freshAge: 60 * 10,
+  },
+  advanced: {
+    useSecureCookies: isProduction,
+    trustedProxyHeaders: true,
+    defaultCookieAttributes: {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: isProduction,
+      path: '/',
+    },
   },
   plugins,
 });

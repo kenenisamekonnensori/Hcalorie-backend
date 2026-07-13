@@ -15,6 +15,8 @@ const envSchema = z.object({
   HOST: z.string().min(1).default('0.0.0.0'),
   BETTER_AUTH_SECRET: z.string().min(32).optional(),
   BETTER_AUTH_URL: z.string().url().optional(),
+  AUTH_RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().positive().default(60),
+  AUTH_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(20),
   CORS_ORIGINS: z.string().transform(csv).default('http://localhost:3000,http://localhost:5173'),
   GOOGLE_CLIENT_ID: z.string().min(1).optional(),
   GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),

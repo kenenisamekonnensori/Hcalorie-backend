@@ -11,3 +11,5 @@ export const buildHealthResponse = (): HealthResponse =>
     timestamp: dayjs().toISOString(),
     uptime: process.uptime(),
   });
+
+
